@@ -27,7 +27,7 @@ export class DigitalSignature {
 
   private keys: KeyStore = {
     public: {},
-    private: {}
+    private: {},
   }
 
   /**
@@ -48,13 +48,13 @@ export class DigitalSignature {
    */
   private async getKey(
     type: 'public' | 'private',
-    id: string
+    id: string,
   ): Promise<string> {
     if (!this.keys[type][id]) {
       const ssmResponse = await this.ssm
         .getParameter({
           Name: `/periodical/dig-sig/keys/${type}/${id}`,
-          ...(type === 'private' && { WithDecryption: true })
+          ...(type === 'private' && { WithDecryption: true }),
         })
         .promise()
       this.keys[type][id] = ssmResponse.Parameter.Value
@@ -83,7 +83,7 @@ export class DigitalSignature {
   public async verify(
     encryptedText: string,
     signature: string,
-    pubKeyId = this.keyId
+    pubKeyId = this.keyId,
   ) {
     const pubKey = await this.getKey('public', pubKeyId)
     return ecdsa.verify(encryptedText, signature, pubKey)
@@ -116,11 +116,11 @@ export class DigitalSignature {
    */
   public async buildUrlParams(
     urlStr: string,
-    urlParams: Partial<SignedUrlParameters> = {}
+    urlParams: Partial<SignedUrlParameters> = {},
   ): Promise<SignedUrlParameters> {
     const params = {
       ...parseQuery(urlStr.split('?').slice(-1)[0]),
-      ...urlParams
+      ...urlParams,
     }
     if (!params.userId) throw new Error('No userId found in params')
     if (!params.expiresAt) params.expiresAt = Date.now() + 300e3
@@ -156,11 +156,11 @@ export class DigitalSignature {
     unsignedUrlStr: string,
     userId: string,
     entitlementId: string,
-    clientId?: string
+    clientId?: string,
   ) {
     const params = await this.buildUrlParams(unsignedUrlStr, {
       userId,
-      entitlementId
+      entitlementId,
     })
     const unsignedUrl = new URL(unsignedUrlStr)
 
