@@ -1,0 +1,48 @@
+{
+  "name": "@360mediadirect/digital-signature",
+  "version": "1.1.0",
+  "description": "Digital signer",
+  "main": "dist/index.js",
+  "author": "Steve Yardumian <steve@360mediadirect.com>",
+  "license": "ISC",
+  "private": false,
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "test": "LOG_SILENT=1 jest test --coverage",
+    "clean": "rm -rf node_modules dist src/ddb.ts"
+  },
+  "files": [
+    "./dist/*"
+  ],
+  "dependencies": {
+    "jwa": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.62",
+    "@types/http-errors": "^2.0.4",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "@types/shortid": "^0.0.32",
+    "aws-sdk": "^2.1328.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/__tests__/**/*.spec.{js,ts}?(x)"
+    ],
+    "testEnvironment": "node",
+    "verbose": true,
+    "testPathIgnorePatterns": [],
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
