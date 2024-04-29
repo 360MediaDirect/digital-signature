@@ -13,10 +13,9 @@
     "sourceRoot": "src",
     "esModuleInterop": true,
     "declaration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*.ts"],
-  "exclude": [
-    "./**/__tests__/*"
-  ]
+  "exclude": ["./src/__tests__/*"]
 }

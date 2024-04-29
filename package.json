@@ -1,11 +1,11 @@
 {
   "name": "@360mediadirect/digital-signature",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "Digital signer",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Steve Yardumian <steve@360mediadirect.com>",
   "license": "ISC",
-  "private": false,
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
@@ -13,7 +13,7 @@
     "clean": "rm -rf node_modules dist src/ddb.ts"
   },
   "files": [
-    "./dist/*"
+    "./dist/**/*"
   ],
   "dependencies": {
     "jwa": "^2.0.0"
