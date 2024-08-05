@@ -14,7 +14,7 @@ export interface SignedUrlParameters {
   expiresAt: number
   nonce: string
   userId: string
-  entitlementId: string
+  entitlementId?: string
   clientId: string
   signature: string
   keyId: string
