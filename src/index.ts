@@ -155,7 +155,7 @@ export class DigitalSignature {
   public async buildSignedUrl(
     unsignedUrlStr: string,
     userId: string,
-    entitlementId: string,
+    entitlementId?: string,
     clientId?: string,
   ) {
     const params = await this.buildUrlParams(unsignedUrlStr, {
@@ -166,8 +166,8 @@ export class DigitalSignature {
 
     return `${unsignedUrlStr}${unsignedUrl.search ? '&' : '?'}expiresAt=${
       params.expiresAt
-    }&keyId=${this.keyId}&userId=${params.userId}&entitlementId=${
-      params.entitlementId
+    }&keyId=${this.keyId}&userId=${params.userId}${
+      params.entitlementId ? `&entitlementId=${params.entitlementId}` : ''
     }&nonce=${params.nonce}&signature=${params.signature}${
       clientId ? `&clientId=${clientId}` : ''
     }`
