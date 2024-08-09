@@ -13,9 +13,9 @@ interface KeyStore {
 export interface SignedUrlParameters {
   expiresAt: number
   nonce: string
-  userId: string
+  userId?: string
   entitlementId?: string
-  clientId: string
+  clientId?: string
   signature: string
   keyId: string
 }
@@ -122,7 +122,7 @@ export class DigitalSignature {
       ...parseQuery(urlStr.split('?').slice(-1)[0]),
       ...urlParams,
     }
-    if (!params.userId) throw new Error('No userId found in params')
+    // if (!params.userId) throw new Error('No userId found in params')
     if (!params.expiresAt) params.expiresAt = Date.now() + 300e3
     if (!params.nonce) params.nonce = uuidv4().split('-').slice(-1)
     if (!params.keyId) params.keyId = this.keyId
@@ -141,20 +141,20 @@ export class DigitalSignature {
    */
   private buildSignable(url: string, params: SignedUrlParameters): string {
     const baseUrl = this.getBaseUrl(url)
-    return `${baseUrl}${params.expiresAt}${params.userId}${params.nonce}`
+    return `${baseUrl}${params.expiresAt}${params.userId ? params.userId : ''}${params.nonce}`
   }
 
   /**
    *
    * @param unsignedUrlStr
-   * @param userId
-   * @param entitlementId
+   * @param userId (optional)
+   * @param entitlementId (optional)
    * @param clientId (optional)
    * @returns signed url
    */
   public async buildSignedUrl(
     unsignedUrlStr: string,
-    userId: string,
+    userId?: string,
     entitlementId?: string,
     clientId?: string,
   ) {
@@ -166,7 +166,7 @@ export class DigitalSignature {
 
     return `${unsignedUrlStr}${unsignedUrl.search ? '&' : '?'}expiresAt=${
       params.expiresAt
-    }&keyId=${this.keyId}&userId=${params.userId}${
+    }&keyId=${this.keyId}${params.userId ? `&userId=${params.userId}` : ''}${
       params.entitlementId ? `&entitlementId=${params.entitlementId}` : ''
     }&nonce=${params.nonce}&signature=${params.signature}${
       clientId ? `&clientId=${clientId}` : ''
