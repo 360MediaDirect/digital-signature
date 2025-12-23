@@ -155,10 +155,10 @@ export class DigitalSignature {
    */
   public async buildSignedUrl({
     unsignedUrlStr,
-    expiresAt = undefined,
-    userId = undefined,
-    entitlementId = undefined,
-    clientId = undefined,
+    expiresAt = 0,
+    userId = '',
+    entitlementId = '',
+    clientId = '',
   }) {
     const params = await this.buildUrlParams(unsignedUrlStr, {
       userId,

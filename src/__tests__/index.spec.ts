@@ -3,7 +3,7 @@ import { DigitalSignature } from '../index'
 
 jest.setTimeout(30e3)
 
-let digSig
+let digSig: DigitalSignature
 
 describe(`Digital Signature`, () => {
   beforeEach(() => {
@@ -72,12 +72,13 @@ describe(`Digital Signature`, () => {
   })
 
   it('buildSignedUrl(unsignedUrlStr, userId, entitlementId, clientId?)', async () => {
-    const signedUrl = await digSig.buildSignedUrl(
-      'https://pageraftstaging.nxtbook.com/360mediadirect/us_weekly/demo_full/cover.html',
-      '94a637e3-2c58-4f78-8466-d96667adfe1d',
-      '94a637e3-2c58-4f78-9999-d96667adfe1d',
-      'steve-postman',
-    )
+    const signedUrl = await digSig.buildSignedUrl({
+      unsignedUrlStr:
+        'https://pageraftstaging.nxtbook.com/360mediadirect/us_weekly/demo_full/cover.html',
+      userId: '94a637e3-2c58-4f78-8466-d96667adfe1d',
+      entitlementId: '94a637e3-2c58-4f78-9999-d96667adfe1d',
+      clientId: 'steve-postman',
+    })
     expect(signedUrl).toBeDefined()
   })
 
