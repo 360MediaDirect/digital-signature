@@ -147,20 +147,23 @@ export class DigitalSignature {
   /**
    *
    * @param unsignedUrlStr
+   * @param expiresAt (optional)
    * @param userId (optional)
    * @param entitlementId (optional)
    * @param clientId (optional)
    * @returns signed url
    */
-  public async buildSignedUrl(
-    unsignedUrlStr: string,
-    userId?: string,
-    entitlementId?: string,
-    clientId?: string,
-  ) {
+  public async buildSignedUrl({
+    unsignedUrlStr,
+    expiresAt = undefined,
+    userId = undefined,
+    entitlementId = undefined,
+    clientId = undefined,
+  }) {
     const params = await this.buildUrlParams(unsignedUrlStr, {
       userId,
       entitlementId,
+      expiresAt,
     })
     const unsignedUrl = new URL(unsignedUrlStr)
 
