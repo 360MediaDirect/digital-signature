@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Steve Yardumian <steve@360mediadirect.com>",
+  "repository": "https://github.com/360MediaDirect/digital-signature",
   "license": "ISC",
   "scripts": {
     "prepublish": "npm run build",
